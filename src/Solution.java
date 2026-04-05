@@ -4,29 +4,32 @@ public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Read size of array
+        // Check if there is an input for N
         if (!sc.hasNextInt()) return;
         int n = sc.nextInt();
-        
-        int largest = Integer.MIN_VALUE;
-        int secondLargest = Integer.MIN_VALUE;
+
+        // Use long to handle cases where array contains Integer.MIN_VALUE
+        long largest = Long.MIN_VALUE;
+        long secondLargest = Long.MIN_VALUE;
 
         for (int i = 0; i < n; i++) {
+            if (!sc.hasNextInt()) break;
             int current = sc.nextInt();
 
             if (current > largest) {
-                // Update both if new maximum is found
+                // The old largest becomes the second largest
                 secondLargest = largest;
                 largest = current;
             } else if (current > secondLargest && current < largest) {
-                // Update only secondLargest if current is in between
+                // Current is smaller than largest but bigger than secondLargest
                 secondLargest = current;
             }
         }
 
-        // Output the result
+        // Print the result (casting back to int or printing the long)
+        // If secondLargest is still Long.MIN_VALUE, it means no 2nd largest exists
         System.out.println(secondLargest);
-        
+
         sc.close();
     }
 }
