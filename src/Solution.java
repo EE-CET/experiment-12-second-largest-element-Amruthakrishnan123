@@ -4,11 +4,10 @@ public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Check if there is an input for N
         if (!sc.hasNextInt()) return;
         int n = sc.nextInt();
-
-        // Use long to handle cases where array contains Integer.MIN_VALUE
+        
+        // Use long to safely handle the full range of integers
         long largest = Long.MIN_VALUE;
         long secondLargest = Long.MIN_VALUE;
 
@@ -17,19 +16,18 @@ public class Solution {
             int current = sc.nextInt();
 
             if (current > largest) {
-                // The old largest becomes the second largest
+                // Shift the old largest to secondLargest
                 secondLargest = largest;
                 largest = current;
-            } else if (current > secondLargest && current < largest) {
-                // Current is smaller than largest but bigger than secondLargest
+            } else if (current > secondLargest) {
+                // KEY CHANGE: Removed the "current < largest" check.
+                // This allows secondLargest to be equal to largest 
+                // if the maximum value appears more than once.
                 secondLargest = current;
             }
         }
 
-        // Print the result (casting back to int or printing the long)
-        // If secondLargest is still Long.MIN_VALUE, it means no 2nd largest exists
         System.out.println(secondLargest);
-
         sc.close();
     }
 }
